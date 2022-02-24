@@ -37,24 +37,24 @@ class windows1:
         self.LoginFrame3 = Frame(self.frame, width = 1000, height = 200, bd = 10, relief = 'flat')
         self.LoginFrame3.grid(row = 6, column = 0, pady = 5)
 
-        self.button_registration = Button(self.LoginFrame3, text = 'Patient registration', font = ('arial',15,'bold'),
-                                 command = self.Registration_form)
-        self.button_registration.grid(row = 0, column = 0, padx = 10, pady = 10)
+        self.buttonRegistration = Button(self.LoginFrame3, text ='Patient registration', font = ('arial', 15, 'bold'),
+                                         command = self.RegistrationForm, state = DISABLED)
+        self.buttonRegistration.grid(row = 0, column = 0, padx = 10, pady = 10)
 
 
-        self.button_hospital = Button(self.LoginFrame3, text = 'Hospital section', font = ('arial', 15, 'bold'),
-                                 command = self.Hospital_section)
-        self.button_hospital.grid(row = 0, column = 1, padx = 10, pady = 10)
+        self.buttonHospital = Button(self.LoginFrame3, text ='Hospital section', font = ('arial', 15, 'bold'),
+                                     command = self.HospitalSection, state = DISABLED)
+        self.buttonHospital.grid(row = 0, column = 1, padx = 10, pady = 10)
 
 
-        self.button_doctor_section = Button(self.LoginFrame3, text = 'Doctor section', font = ('arial', 15, 'bold'),
-                                 command = self.Doctor_section)
-        self.button_doctor_section.grid(row = 1, column = 0, padx = 10, pady = 10)
+        self.buttonDoctorSection = Button(self.LoginFrame3, text ='Doctor section', font = ('arial', 15, 'bold'),
+                                          command = self.DoctorSection, state = DISABLED)
+        self.buttonDoctorSection.grid(row = 1, column = 0, padx = 10, pady = 10)
 
 
-        self.button_medical_stock = Button(self.LoginFrame3, text = 'Medicine stock', font = ('arial', 15, 'bold'),
-                                            command=self.Medicine_stock)
-        self.button_medical_stock.grid(row = 1, column = 1, padx = 10, pady = 10)
+        self.buttonMedicalStock = Button(self.LoginFrame3, text ='Medicine stock', font = ('arial', 15, 'bold'),
+                                         command=self.MedicineStock, state = DISABLED)
+        self.buttonMedicalStock.grid(row = 1, column = 1, padx = 10, pady = 10)
 
         self.LabelUsername = Label(self.LoginFrame1, text = 'Username', font = ('arial', 20, 'bold'), bd = 3)
         self.LabelUsername.grid(row = 0, column = 0)
@@ -68,28 +68,48 @@ class windows1:
         self.textPassword = Entry(self.LoginFrame1, font = ('arial', 20), bd = 3, textvariable = self.Password, show = '*')
         self.textPassword.grid(row = 1, column = 1, padx = 40, pady = 15)
 
-        self.button_login = Button(self.LoginFrame2, text = "Login", width = 20, font = ("arial", 18, "bold"))
-        self.button_login.grid(row = 0, column = 0, padx = 10, pady = 10)
+        self.buttonLogin = Button(self.LoginFrame2, text ="Login", width = 20, font = ("arial", 18, "bold"), command = self.LoginForm)
+        self.buttonLogin.grid(row = 0, column = 0, padx = 10, pady = 10)
 
-        self.button_reset = Button(self.LoginFrame2, text = "Reset", width = 20, font = ("arial", 18, "bold"))
-        self.button_reset.grid(row = 0, column = 3, padx = 10, pady = 10)
+        self.buttonReset = Button(self.LoginFrame2, text ="Reset", width = 20, font = ("arial", 18, "bold"))
+        self.buttonReset.grid(row = 0, column = 3, padx = 10, pady = 10)
 
-        self.button_exit = Button(self.LoginFrame2, text = "Exit", width = 20, font = ("arial", 18, "bold"))
-        self.button_exit.grid(row = 0, column = 6, padx = 10, pady = 10)
+        self.buttonExit = Button(self.LoginFrame2, text ="Exit", width = 20, font = ("arial", 18, "bold"))
+        self.buttonExit.grid(row = 0, column = 6, padx = 10, pady = 10)
 
-    def Registration_form(self):
+    def LoginForm(self):
+        user = self.Username.get()
+        password = self.Password.get()
+
+        if(user == str('administrator') and (password == str('berina123'))):
+            self.buttonRegistration.config(state = NORMAL)
+            self.buttonHospital.config(state = NORMAL)
+            self.buttonDoctorSection.config(state = NORMAL)
+            self.buttonMedicalStock.config(state = NORMAL)
+        else:
+            tkinter.messagebox.askyesno("Pharmacy management system", "Incorrect username or password")
+            self.buttonRegistration.config(state=DISABLED)
+            self.buttonHospital.config(state=DISABLED)
+            self.buttonDoctorSection.config(state=DISABLED)
+            self.buttonMedicalStock.config(state=DISABLED)
+
+            self.Username.set("")
+            self.Password.set("")
+            self.textUsername.focus
+
+    def RegistrationForm(self):
         self.newWindow = Toplevel(self.master)
         self.app = windows2(self.newWindow)
 
-    def Hospital_section(self):
+    def HospitalSection(self):
         self.newWindow = Toplevel(self.master)
         self.app = windows3(self.newWindow)
 
-    def Doctor_section(self):
+    def DoctorSection(self):
         self.newWindow = Toplevel(self.master)
         self.app = windows4(self.newWindow)
 
-    def Medicine_stock(self):
+    def MedicineStock(self):
         self.newWindow = Toplevel(self.master)
         self.app = windows5(self.newWindow)
 
